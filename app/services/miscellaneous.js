@@ -1,6 +1,6 @@
 const { exec } = require("child_process");
 var cfg = require("../../config/config.json");
-const getDb = require('../utils/mongoDatabase').getDb;
+const getDb = require("../utils/mongoDatabase").getDb;
 
 module.exports.saveServerIp = async (req, res, next) => {
   const db = getDb();
@@ -18,23 +18,25 @@ module.exports.saveServerIp = async (req, res, next) => {
     // console.log("Org id value is here", org_id);
     let Data = {
       ip: ip,
-      created_time: Math.floor(((new Date()).getTime()) / 1000),
-      status: true
-    }
+      created_time: Math.floor(new Date().getTime() / 1000),
+      status: true,
+    };
     let checkData = {
-      'ip': ip
-    }
+      ip: ip,
+    };
     if (org_id) {
-      checkData["org_id"] = org_id
-      Data["org_id"] = org_id
+      checkData["org_id"] = org_id;
+      Data["org_id"] = org_id;
     }
     //save server IP
-    await db.collection('router_boot_log').updateOne(checkData, {
-      $set: Data
-    }, {
-      'upsert': true
-    });
+    await db.collection("router_boot_log").updateOne(
+      checkData,
+      {
+        $set: Data,
+      },
+      {
+        upsert: true,
+      }
+    );
   });
-}
-
-
+};
