@@ -22,6 +22,13 @@ module.exports.addPlayers = async (req, res) => {
       });
     }
 
+    if (!(firstPlayerName == secondPlayerName)) {
+      return common.responseData(res, {
+        status: false,
+        statuscode: 401,
+        message: "Please Enter unique player name",
+      });
+    }
     let playerObj = {
       firstPlayerName: firstPlayerName,
       secondPlayerName: secondPlayerName,
@@ -112,14 +119,12 @@ module.exports.getPlayers = async (req, res) => {
 async function isPlayer(playerObj) {
   const db = getDb();
 
-  let players = await db
-    .collection("players")
-    .findOne({
-      $or: [
-        { name: playerObj.firstPlayerName },
-        { name: playerObj.secondPlayerName },
-      ],
-    });
+  let players = await db.collection("players").findOne({
+    $or: [
+      { name: playerObj.firstPlayerName },
+      { name: playerObj.secondPlayerName },
+    ],
+  });
 
   if (players) {
     return players;
