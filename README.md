@@ -2,11 +2,11 @@
 
 # This project contains 5 API.
 
-1. Add players ( player name is unique , once name is used we can not use another one )
-2. Get Players.
-3. Add Matches.
-4. Get Matches.
-5. Get Top Performers.
+1. Add players ( Two player can not have same name )
+2. Get Players. ( Get each player full details )
+3. Add Matches. ( Matches can be played only with the player exists ) 
+4. Get Matches. ( Get all matches list , by default 5 ) ( we can also pass in query like list=10 )
+5. Get Top Performers. ( Get top performers among last games , by default 5 ) ( we can also pass in query like list=10 )
 
 # Players Name should be unique and case insenstive 
 example : Shriom , sHriom , sHRiom consider same Name.
@@ -32,13 +32,29 @@ some command
 
 # API URL
 ``` 
-Add players localhost:8081/add/players
+Add players localhost:8081/add/players (POST) 
 
-Add Matches localhost:8081/add/matches
+{
+    "firstPlayerName" : "Shriom" ,
+    "secondPlayerName" : "David"
+}
 
-Get Player localhost:8081/getPlayer
+Add Matches localhost:8081/add/matches (POST)
 
-Get Matches localhost:8081/getMatches?list=5
+{
+    "firstPlayerName" : "Shriom" ,
+    "secondPlayerName" : "David",
+    "firstPlayerWins" : 6 ,
+    "secondPlayerWins" : 10
+}
 
-Get TopPerformers localhost:8081/getTopPerformers
+Get Player localhost:8081/getPlayer (POST)
+ {
+     "playerName" : "Shriom"
+ }
+
+Get Matches localhost:8081/getMatches?list=5 (GET)
+
+
+Get TopPerformers localhost:8081/getTopPerformers (GET)
 
