@@ -22,7 +22,7 @@ module.exports.addPlayers = async (req, res) => {
       });
     }
 
-    if (!(firstPlayerName == secondPlayerName)) {
+    if ((firstPlayerName == secondPlayerName)) {
       return common.responseData(res, {
         status: false,
         statuscode: 401,
